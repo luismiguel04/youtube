@@ -109,6 +109,24 @@ class VideoController extends Controller
         $video->title = $request->input('title');
         $video->description = $request->input('description');
         $video->status =1;
+
+        //Subir la miniatura
+        $image = $request->file('image');
+        if($image){
+            $image_path = time().$image->getClientOriginalName();
+            \Storage::disk('images')->put($image_path,
+                \File::get($image));
+            $video->image = $image_path;
+        }
+
+        //Subir video
+        $video_file = $request->file('video');
+        if($video_file){
+            $video_path = time().$video_file->getClientOriginalName();
+            \Storage::disk('videos')->put($video_path,
+                \File::get($video_file));
+            $video->video_path = $video_path;
+        }
         $video->save();
         return redirect()->route('videos.index')->with(array(
         'message'=> 'El video se ha subido correctamente'
@@ -173,4 +191,9 @@ class VideoController extends Controller
             ));
         }
     }
+    public function getImage($filename){
+       $file = \Storage::disk('images')->get($filename);
+       return new Response($file, 200);
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\VsVideo;
@@ -67,9 +68,11 @@ class VideoController extends Controller
             </div>
 
             ';
+            $miniatura = "<img src='miniatura/".$value['image']."' with='50px'>" ;
 
             $videos[$key] = array(
                 $acciones,
+                $miniatura,
                 $value['id'],
                 $value['title'],
                 $value['description'],
@@ -141,7 +144,8 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        //
+        $video = VsVideo::find($id);
+        return view('videos.show')->with('video',$video);
     }
 
     /**
@@ -196,4 +200,8 @@ class VideoController extends Controller
        return new Response($file, 200);
     }
 
+    public function getVideo($filename){
+        $file = \Storage::disk('video')->get($filename);
+        return new Response($file, 200);
+    }
 }

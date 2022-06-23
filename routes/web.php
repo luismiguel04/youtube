@@ -36,6 +36,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); */
 
 Route::resource('videos', 'App\Http\Controllers\VideoController');
+Route::resource('comentarios', 'App\Http\Controllers\CommentController');
 
 Route::get('/delete-video/{video_id}', array(
     'as' => 'delete-video',

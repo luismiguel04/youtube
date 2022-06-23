@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comentario;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Video;
@@ -68,15 +69,15 @@ class VideoController extends Controller
             </div>
 
             ';
-            $miniatura = "<img src='miniatura/".$value['image']."' with='50px'>" ;
+            $miniatura = "<img src='miniatura/".$value['image']."' class='img-thumbnail'/>" ;
 
             $videos[$key] = array(
                 $acciones,
-                $miniatura,
                 $value['id'],
                 $value['title'],
                 $value['description'],
-                $value['image'],
+//                $value['image'],
+                $miniatura,
                 $value['video_path'],
                 $value['name'],
                 $value['email']
@@ -145,7 +146,8 @@ class VideoController extends Controller
     public function show($id)
     {
         $video = VsVideo::find($id);
-        return view('videos.show')->with('video',$video);
+        $comments = Comentario::where('video_id','=',$id)->get();
+        return view('videos.show')->with('video',$video)->with('comments',$comments);
     }
 
     /**

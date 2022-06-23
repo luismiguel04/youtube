@@ -15,7 +15,7 @@
             <a href="#" class="btn btn-primary">Regresar</a>
         </div>
         <div class="card-footer text-muted">
-            Publicado por: {{$video->name}} fecha: {{$video->created_at}}
+            Publicado por: {{$video->name}} | fecha: {{ LongTimeFilter( $video->created_at)}}
         </div>
     </div>
 {{--    <h1>{{$video->title}}</h1>--}}
@@ -53,7 +53,7 @@
                     <div class="panel panel-default comment-data">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <strong>PEPe</strong>  {{ $comment->created_at}}
+                                <strong>PEPe</strong>  {{ LongTimeFilter( $comment->created_at)}}
                             </div>
                         </div>
                         <div class="panel-body">

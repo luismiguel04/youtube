@@ -9,4 +9,9 @@ class Comentario extends Model
 {
     use HasFactory;
     protected $table = 'comentarios';
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
 }

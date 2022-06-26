@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Comentario;
+use App\Models\VSComentario;
+use App\Models\User;
 class CommentController extends Controller
 {
     /**
@@ -37,13 +38,13 @@ class CommentController extends Controller
         $validate = $this->validate($request,[
             'body' => 'required'
         ]);
-        $comment = new Comentario();
+        $comment = new VSComentario();
         $user = \Auth::user();
         $comment->user_id = $user->id;
         $comment->video_id = $request->input('video_id');
         $comment->body = $request->input('body');
         $comment->save();
-        return redirect()->route('videos.show', $comment->video_id)->with(array(
+        return redirect()->route('videos.show', $comment->video_id,$comment->name)->with(array(
             'message' => 'Comentario Añadido Correctamente'
         ));
     }

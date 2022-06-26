@@ -12,7 +12,7 @@
         Tu navegador no es compatible con HTML5
     </video>
             <p class="card-text">{{$video->description}}</p>
-            <a href="#" class="btn btn-primary">Regresar</a>
+            <a href="{{ route('videos.index') }}" class="btn btn-primary">Regresar</a>
         </div>
         <div class="card-footer text-muted">
             Publicado por: {{$video->name}} | fecha: {{ LongTimeFilter( $video->created_at)}}
@@ -29,7 +29,7 @@
     <!--video-->
 {{--    <h5>{{$video->description}}</h5>--}}
     <hr/>
-    <h3>Haz un comentario perron</h3>
+    <h3>Realiza un comentario </h3>
     @if(Auth::check())
         <form class="col-md-4" method="post" action="{{route('comentarios.store')}}">
             {!! csrf_field() !!}
@@ -45,7 +45,7 @@
         <div class="clearfix"></div>
         <hr/>
     @endif
-    (isset($video->comments))
+    
     <h4>Comentarios</h4>
         <div id="comments-list">
             @foreach($comments as $comment)
@@ -53,7 +53,7 @@
                     <div class="panel panel-default comment-data">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <strong>PEPe</strong>  {{ LongTimeFilter( $comment->created_at)}}
+                                <strong>{{($comment->name)}}</strong>  {{ LongTimeFilter( $comment->created_at)}}
                             </div>
                         </div>
                         <div class="panel-body">

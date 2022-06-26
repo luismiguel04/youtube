@@ -42,14 +42,16 @@ Route::get('/delete-video/{video_id}', array(
     'as' => 'delete-video',
     'middleware' => 'auth',
     'uses' => 'App\Http\Controllers\VideoController@delete_video'
-));
+))->middleware('auth');
 
 Route::get('/miniatura/{filename}', array(
     'as'=> 'imageVideo',
     'uses' => 'App\Http\Controllers\VideoController@getImage'
-));
+))->middleware('auth');
+
 
 Route::get('/video-file/{filename}', array(
     'as'=> 'fileVideo',
     'uses' => 'App\Http\Controllers\VideoController@getVideo'
-));
+))->middleware('auth');
+

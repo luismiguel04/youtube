@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comentario;
+use App\Models\VSComentario;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\VsVideo;
+use App\Models\User;
 
 class VideoController extends Controller
 {
@@ -31,6 +32,7 @@ class VideoController extends Controller
             $ruta = "eliminar".$value['id'];
             $eliminar =     route('delete-video', $value['id']);
             $actualizar =  route('videos.edit', $value['id']);
+            $editar= route('videos.show',$value['id']);
 
             $acciones = '
                 <div class="btn-acciones">
@@ -41,6 +43,7 @@ class VideoController extends Controller
                          <a href="#'.$ruta.'" role="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#'.$ruta.'">
                             <i class="far fa-trash-alt"></i>
                         </a>
+                        <a class="btn btn-sm btn-primary "href="'.$editar.'">Mostrar</a>
 
                     </div>
                 </div>
@@ -146,7 +149,7 @@ class VideoController extends Controller
     public function show($id)
     {
         $video = VsVideo::find($id);
-        $comments = Comentario::where('video_id','=',$id)->get();
+        $comments = VSComentario::where('video_id','=',$id)->get();
         return view('videos.show')->with('video',$video)->with('comments',$comments);
     }
 
